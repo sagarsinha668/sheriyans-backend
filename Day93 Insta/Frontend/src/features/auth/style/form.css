@@ -1,0 +1,42 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+main .form-container {
+  width: 35rem;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(155, 155, 155, 0.5);
+}
+main .form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding-inline: 1rem;
+  padding-block: 1rem;
+}
+main .form-container form input,
+main .form-container form button {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+main .form-container form button {
+  background-color: #f93939;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+main .form-container form button:hover {
+  background-color: #f83426;
+}
+main .form-container .toggleauthform {
+  color: #db3f3f;
+  text-decoration: none;
+}
+main .form-container .toggleauthform:hover {
+  text-decoration: none;
+}/*# sourceMappingURL=form.css.map */
