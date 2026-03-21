@@ -1,6 +1,7 @@
 const usermodel = require("../model/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const redis = require("../config/cache")
 
 const RegisterUserController = async (req, res) => {
   const { username, email, password } = req.body;
@@ -48,9 +49,11 @@ const RegisterUserController = async (req, res) => {
 const LoginUserController = async (req, res) => {
   const { username, email, password } = req.body;
 
-  const user = await usermodel.findOne({
-    $or: [{ username }, { email }],
-  });
+  const user = await usermodel
+    .findOne({
+      $or: [{ username }, { email }],
+    })
+    .select("+password");
   if (!user) {
     return res.status(400).json({
       message: "Invalid Credentials",
@@ -89,9 +92,35 @@ const LoginUserController = async (req, res) => {
 };
 
 const getMeController = async (req, res) => {
-    
-}
+  const user = await usermodel.findById(req.user.id);
+
+  if (!user) {
+    return res.status(404).json({
+      message: "User not found",
+    });
+  }
+  return res.status(200).json({
+    message: "User fetched successfully",
+    user: {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+    },
+  });
+};
+
+const logoutController = async (req, res) => {
+  const token = req.cookies.token;
+  res.clearCookie("token");
+  redis.set(token, Date.now().toString());
+  return res.status(200).json({
+    message: "Logout successful",
+  });
+};
+
 module.exports = {
   RegisterUserController,
   LoginUserController,
+  getMeController,
+  logoutController,
 };
