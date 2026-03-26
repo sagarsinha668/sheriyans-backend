@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import {registerApi} from  "../services/auth.api"
-registerApi()
 const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -9,7 +7,7 @@ const Register = () => {
     password: "",
   });
   const navigate = useNavigate();
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({

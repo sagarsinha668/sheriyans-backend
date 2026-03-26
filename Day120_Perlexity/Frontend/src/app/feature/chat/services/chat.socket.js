@@ -1,0 +1,14 @@
+import { io } from "socket.io-client";
+
+export const initializedSocketConnection = () => {
+    const socket = io("http://localhost:3000", {
+        withCredentials: true,
+    });
+    socket.on("connect", () => {
+        console.log("connected to socket");
+    });
+    socket.on("disconnect", () => {
+        console.log("disconnected from socket");
+    });
+    return socket;
+};
