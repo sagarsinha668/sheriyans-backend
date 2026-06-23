@@ -1,14 +1,11 @@
 import express from "express"
 import cors from "cors"
 const app = express()
-// app.use(cors())
+app.use(cors())
+app.use(express.static("public"))
 
-app.get("/", (req, res) => {
-    const data= {
-        message: "Hello, Docker!",
-        timestamp: new Date()
-    }
-    res.status(200).json(data)
+app.get("*name", (req, res) => {
+res.sendFile("index.html")
 })
 app.get("/api/test",(req,res)=>{
     const employee=[
